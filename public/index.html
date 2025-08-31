@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background: #f9f9f9;
+    }
+    .container {
+      text-align: center;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    .signup {
+      background: #4CAF50;
+      color: white;
+    }
+    .signup:hover {
+      background: #45a049;
+    }
+    .login {
+      background: #2196F3;
+      color: white;
+    }
+    .login:hover {
+      background: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Event Platform</h1>
+    <p>Please choose an option:</p>
+    <button class="signup" onclick="location.href='signup.html'">Signup</button>
+    <button class="login" onclick="location.href='login.html'">Login</button>
+    <button class="reset" onclick="location.href='forgot.html'">reset password</button>
+
+    </div>
+  </div>
+</body>
+</html>

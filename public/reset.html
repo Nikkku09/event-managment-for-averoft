@@ -1,0 +1,21 @@
+<h2>Reset Password</h2>
+<form id="resetForm">
+  <input type="password" id="password" placeholder="Enter new password" required />
+  <button type="submit">Reset</button>
+</form>
+
+<script>
+const token = window.location.pathname.split("/").pop(); // extract token from URL
+
+document.getElementById("resetForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const password = document.getElementById("password").value;
+  const res = await fetch(`/reset-password/${token}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password })
+  });
+  const data = await res.json();
+  alert(data.message);
+});
+</script>

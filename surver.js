@@ -33,7 +33,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/eventDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log("✅ MongoDB connected"))
+.then(() => console.log(" MongoDB connected"))
 .catch(err => console.error(err));
 
 // Schemas 
@@ -213,4 +213,5 @@ app.put("/events/:id/complete", authMiddleware, async (req, res) => {
   }
 });
 const PORT = 5000;
-app.listen(PORT, "0.0.0.0", () => console.log(`🚀 Server running at http://0.0.0.0:${PORT}`));
+app.listen(PORT, "0.0.0.0", () => console.log(`a Server running at http://0.0.0.0:${PORT}`));
+

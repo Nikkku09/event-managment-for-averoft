@@ -6,9 +6,13 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const SECRET = "mysecretkey"; // move to .env in production
 const app = express();
 
+// ------------------ Config ------------------
+const SECRET = process.env.JWT_SECRET || "fallbacksecret"; // safer with env
+const PORT = process.env.PORT || 5000;
+
+// ------------------ Middleware ------------------
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -27,14 +31,14 @@ function authMiddleware(req, res, next) {
   }
 }
 
-// ------------------ Mongo ------------------
+// ------------------ MongoDB ------------------
 mongoose
-  .connect("mongodb://127.0.0.1:27017/eventDB", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB error:", err));
 
 // ------------------ Schemas ------------------
 const userSchema = new mongoose.Schema(
@@ -75,7 +79,7 @@ function isStrongPassword(password) {
 
 // ------------------ Routes ------------------
 
-// Signup (with confirm + strength)
+// Signup
 app.post("/signup", async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
@@ -196,6 +200,10 @@ app.delete("/events/:id", authMiddleware, async (req, res) => {
   }
 });
 
+// ------------------ Fallback to frontend ------------------
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
 // ------------------ Start ------------------
-const PORT = 5000;
-app.listen(PORT, "0.0.0.0", () => console.log(`Server running at http://0.0.0.0:${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
